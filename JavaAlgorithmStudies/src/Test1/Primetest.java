@@ -26,11 +26,12 @@ public class Primetest {
             return true;
         } 
         for (int j = 3; j < n; j++) {
-            if (j * j == n) {
-                return false;
-            } else if (n % j == 0) {
+            if (n % j == 0) {
                 return false;
             }  
+            if ( j * j > n) {
+                break;
+            }
         }
         return true;
     }
