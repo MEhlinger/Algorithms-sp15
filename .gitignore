@@ -102,3 +102,7 @@ nb-configuration.xml
 *.i*86
 *.x86_64
 *.hex
+
+# Ignore all, then un-ignore anything with an extension
+*
+!*.*
