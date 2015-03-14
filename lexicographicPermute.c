@@ -2,8 +2,8 @@
 * LEXICOGRAPHIC PERMUTER
 * Generates next permutation of give input, lexicographically
 *
-*
-*
+* by Marshall Ehlinger
+* Recursively implemented with a test array of four sequential integers
 */
 
 # include <stdio.h>
@@ -15,9 +15,8 @@ void lexPermute(int p[], int pSize);
 main() {
 	/* Test Program */
 	int perm[] = {1, 2, 3, 4};
-	int permSize = (int) sizeof(perm) / sizeof(perm[0]);
+	int permSize = sizeof(perm) / sizeof(perm[0]);
 
-	printArray(perm, permSize);
 	printArray(perm, permSize);
 
 	lexPermute(perm, permSize);
@@ -32,8 +31,14 @@ void printArray(int a[], int aSize) {
 	printf("\n");
 }
 
+void swap(int* a, int* b) {
+	int temp = *b;
+	*b = *a;
+	*a = temp;
+}
+
 void lexPermute(int p[], int pSize) {
-	int i, k, j, g, temp;
+	int i, k, j, g, h, temp;
 
 	/* 
 	* If permutation array "a" (p in the code below) 
@@ -44,7 +49,7 @@ void lexPermute(int p[], int pSize) {
 		if (p[i] < p[i + 1]) {
 
 			// Find the largest index k so that array[i] < array[j]
-			for (k = pSize - 1; k < i; k--) {
+			for (k = pSize - 1; k > i; k--) {
 				if (p[k] > p[i]) {
 					j = k;
 					break;
@@ -52,16 +57,30 @@ void lexPermute(int p[], int pSize) {
 			}
 
 			// Swap array[i] and array[j]
+			swap(&p[i], &p[j]);
+			/*
 			temp = p[i];
 			p[i] = p[j];
 			p[j] = temp;
+			*/
 
 			// Reverse order of array[i + 1] up to a[n]
+			/*
 			for (g = i+1; g < ceil((pSize + i + 1) / 2); g++) {
 				temp = p[pSize - (g - 1)];
 				p[pSize - (g - 1)] = p[g];
 				p[g] = temp;
 			}
+			*/
+			// Where g is the lower bound of the reversing, and h is the upper
+			g = i + 1;
+			h = pSize -1;
+			while (g < h) {
+				swap(&p[g], &p[h]);
+				g ++;
+				h --;
+			}
+
 			printArray(p, pSize);
 			lexPermute(p, pSize);
 			return;
