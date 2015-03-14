@@ -3,7 +3,7 @@
 * by Marshall Ehlinger
 * Written for Spring 2015 Analysis of Algorithms
 */
-# include <stdio.h>;
+# include <stdio.h>
 
 main() {
 	int i, j, k, temp;
