@@ -58,20 +58,8 @@ void lexPermute(int p[], int pSize) {
 
 			// Swap array[i] and array[j]
 			swap(&p[i], &p[j]);
-			/*
-			temp = p[i];
-			p[i] = p[j];
-			p[j] = temp;
-			*/
 
 			// Reverse order of array[i + 1] up to a[n]
-			/*
-			for (g = i+1; g < ceil((pSize + i + 1) / 2); g++) {
-				temp = p[pSize - (g - 1)];
-				p[pSize - (g - 1)] = p[g];
-				p[g] = temp;
-			}
-			*/
 			// Where g is the lower bound of the reversing, and h is the upper
 			g = i + 1;
 			h = pSize -1;
