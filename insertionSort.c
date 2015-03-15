@@ -11,10 +11,12 @@ main() {
 	int arraySize = sizeof(array) / sizeof(array[0]);
 
 	for (i = 1; i < arraySize; i++) {
-		for (j = i; array[j - 1] > array[j]; j--) {
+		j = i;
+		while ((j > 0)  && (array[j-1] > array[j])) {
 			temp = array[j];
 			array[j] = array[j-1];
 			array[j-1] = temp;
+			j--;
 		}
 	}
 
