@@ -8,9 +8,9 @@
 main() {
 	int i, j, k, temp;
 	int array[] = {10, 2, 5, 2, 8, 9, 3};
-	int arraySize = sizeof(array) / sizeof(array[0]);
+	const int ARRAY_LENGTH = sizeof(array) / sizeof(array[0]);
 
-	for (i = 1; i < arraySize; i++) {
+	for (i = 1; i < ARRAY_LENGTH; i++) {
 		j = i;
 		while ((j > 0)  && (array[j-1] > array[j])) {
 			temp = array[j];
@@ -20,7 +20,7 @@ main() {
 		}
 	}
 
-	for (k = 0 ; k < arraySize ; k++) {
+	for (k = 0 ; k < ARRAY_LENGTH ; k++) {
 		printf("%d\n", array[k]);
 	}
 }

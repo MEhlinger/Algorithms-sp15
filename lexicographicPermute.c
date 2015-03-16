@@ -15,11 +15,11 @@ void lexPermute(int p[], int pSize);
 main() {
 	/* Test Program */
 	int perm[] = {1, 2, 3, 4};
-	int permSize = sizeof(perm) / sizeof(perm[0]);
+	int const PERMUTATION_LENGTH = sizeof(perm) / sizeof(perm[0]);
 
-	printArray(perm, permSize);
+	printArray(perm, PERMUTATION_LENGTH);
 
-	lexPermute(perm, permSize);
+	lexPermute(perm, PERMUTATION_LENGTH);
 }
 
 void printArray(int a[], int aSize) {
