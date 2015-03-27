@@ -45,14 +45,12 @@ def merge(left, right):
 
 	return dest
 
-def swap(a):
-	temp = a[0]
-	a[0] = a[1]
-	a[1] = temp
-	return a
-
 ########
 # TEST #
 ########
-a = [4, 5, 12, 213, 22, 98, 11, 4, 74, 35, 2, 7, 6]
+with open("sorts.txt", "r") as data:
+	a = data.readlines()
+a = a[0].split(",")
+for i in range (0, len(a)):
+	a[i] = int(a[i])
 print mergeSort(a)

@@ -31,7 +31,10 @@ def swap(a, first, second):
 ########
 # TEST #
 ########
-array = [65, 4, 5, 61, 12, 232, 123123, 12, 10, 7, 99]
-#print partition(array, 0, len(array))
+with open("sorts.txt", "r") as data:
+	array = data.readlines()
+array = array[0].split(",")
+for i in range (0, len(array)):
+	array[i] = int(array[i])
 quickSort(array, 0, len(array)-1)
 print array

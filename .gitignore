@@ -103,6 +103,5 @@ nb-configuration.xml
 *.x86_64
 *.hex
 
-# Ignore all, then un-ignore anything with an extension
-#*
-#!*.*
+# Extraneous Files
+*.txt
