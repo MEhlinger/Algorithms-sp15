@@ -17,8 +17,6 @@ void swap(int *a, int firstIndex, int secondIndex) {
 
 int partition(int *a, int lo, int hi) {
 	int pivot = a[hi];
-	printf("hi index %d\n", hi);
-	printf("element at hi index %d\n", pivot);
 	int i;
 
 	for (i = lo; i < hi; i++) {
@@ -54,11 +52,11 @@ void printArray(int a[], int arrayLen) {
 int main() {
 	int array[] = {2, 3, 5, 22, 1, 15, 4};
 	int arrayLen = sizeof(array) / sizeof(array[0]);
-	printf("arrayLen presort: %d\n", arrayLen);
+
+	printArray(array, arrayLen);
 	
 	quickSort(array, 0, arrayLen-1);
 
-	printf("arrayLen postSort: %d\n", arrayLen);
 	printArray(array, arrayLen);
 
 }
