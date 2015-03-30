@@ -3,7 +3,6 @@
 # For 2015 Analysis of Algorithms class
 # Written as a protype for C code
 
-import random
 
 def quickSort(array, lo, hi):
 	if lo < hi:
@@ -29,12 +28,18 @@ def swap(a, first, second):
 
 
 ########
-# TEST #
+# MAIN #
 ########
-with open("sorts.txt", "r") as data:
-	array = data.readlines()
-array = array[0].split(",")
-for i in range (0, len(array)):
-	array[i] = int(array[i])
-quickSort(array, 0, len(array)-1)
-print array
+def main():
+	with open("sorts.txt", "r") as data:
+		array = data.readlines()
+	array = array[0].split(",")
+	for i in range (0, len(array)):
+		array[i] = int(array[i])
+	quickSort(array, 0, len(array)-1)
+	print array
+
+########
+# TEST #
+########	
+main()

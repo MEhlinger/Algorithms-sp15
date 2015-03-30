@@ -2,7 +2,7 @@
 * MergeSort in C
 * by Marshall Ehlinger
 * for Algorithms Spring 2015
-* reads "sorts.txt" for comma delimeted list of to-sort integers
+* Main method sorts a test array of integers
 */
 
 #include <stdio.h>
