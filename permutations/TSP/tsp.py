@@ -62,9 +62,42 @@ def getArrayFromCSV(filename):
 			dataList[i][j] = int(dataList[i][j])
 	return dataList
 
+def letterToNumber(letter):
+	# Converts a one-char string to it's alphabetical index (0-indexed)
+	return ord(letter) - 97
+
+def tspSolveExact(inputPathStr):
+	adjacencyMatrix = getArrayFromCSV(inputPathStr)
+
+	routeNames = []
+	for i in range(0, len(adjacencyMatrix[0])):
+		routeNames.append(chr(i+97))
+		adjacencyMatrix[i][i] = 0 
+
+	routes = permuteRoutes(routeNames)
+
+	minCost = float("inf")
+	shortestRoute = []
+	n = len(routes[0])
+
+	for route in routes:
+		routeCost = 0
+		route.append(route[0])
+
+		for i in range(0, n):
+			routeCost += adjacencyMatrix[letterToNumber(route[i])][letterToNumber(route[i+1])]
+
+		routeCost += adjacencyMatrix[letterToNumber(route[0])][letterToNumber(route[n])]
+
+		if routeCost < minCost:
+			shortestRoute = list(route)
+			minCost = routeCost
+
+	print shortestRoute
+	print minCost
+
 
 ########
 # TEST #
 ########
-adjacencyMatrix = getArrayFromCSV("tests/6.txt")
-routes = permuteRoutes(adjacencyMatrix[0])
+tspSolveExact("tests/10.txt")
