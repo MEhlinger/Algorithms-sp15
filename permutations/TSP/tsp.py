@@ -38,17 +38,19 @@ def lexPermute(p):
 def getArrayFromCSV(filename):
 	# Returns a two-dimensional array of data from comma-seperated text file,
 	# formatted as a 2-dimensional adjacency matrix, to a 2D list of lists
-	with open("6.txt","r") as csv:
-		dataList = csv.readlines()
-	dataList = dataList[0].split(",")
+	with open(filename,"r") as csv:
+		dataList = csv.read().splitlines()
 	for i in range(0, len(dataList)):
-		dataList[i] = int(dataList[i])
+		dataList[i] = dataList[i].split(",")
+		for j in range(0, len(dataList[i])):
+			dataList[i][j].rstrip()
+			dataList[i][j] = int(dataList[i][j])
 	return dataList
 
 
 ########
 # TEST #
 ########
-perm = getArrayFromCSV("6.txt")
+perm = getArrayFromCSV("tests/6.txt")
 print perm
 lexPermute(perm)
