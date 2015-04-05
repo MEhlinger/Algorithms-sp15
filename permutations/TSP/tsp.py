@@ -7,33 +7,48 @@
 
 import math
 
-def lexPermute(p):
-	# If permutation array "a" (p in the code below) has two consecutive elements in increasing order,
-    # Find the largest index i so that a[i]< a[i+1] 
+def permuteRoutes(cityList):
+	uniqueRouteCount = long(math.factorial(len(cityList) - 1) / 2)
+	print "Number of unique routes: " + str(uniqueRouteCount)
+	routeList = []
+	routeList.append(cityList)
+
+	for i in range(0, uniqueRouteCount - 1):
+		# -1 in above range is initial route permutation
+		routeList.append(lexPermute(routeList[i]))
+
+	return routeList
+
+def lexPermute(route):
+	# Finds the next route in lexicographic order
+	#
+	# If array p has two consecutive elements in increasing order,
+    # Find the largest index i so that p[i]< p[i+1] 
+
+	p = list(route)
+
 	for i in range (len(p) - 2, -1, -1):
 		if p[i] < p[i+1]:
 
-			# Find the largest index j so that a[i]< a[j]
+			# Find the largest index j so that p[i]< p[j]
 			for k in range (len(p) - 1, i, -1):
 				if p[k] > p[i]:
 					j = k
 					break
 
-			# Swap (a[i] and a[j])
+			# Swap p[i] and p[j]
 			temp = p[i]
 			p[i] = p[j]
 			p[j] = temp
 
-			# Reverse the order of  ai+1 all the way up to a[n]
+			# Reverse the order of  p[i+1] all the way up to p[n]
 			for g in range(i+1, int(math.ceil((len(p) + (i+1)) / 2))):
 				temp = p[len(p) - (g-i)]
 				p[len(p) - (g-i)] = p[g]
 				p[g] = temp
 
-			print p # Recursive print
-			lexPermute(p) 
+			return p
 
-	return p
 
 def getArrayFromCSV(filename):
 	# Returns a two-dimensional array of data from comma-seperated text file,
@@ -51,6 +66,5 @@ def getArrayFromCSV(filename):
 ########
 # TEST #
 ########
-perm = getArrayFromCSV("tests/6.txt")
-print perm
-lexPermute(perm)
+adjacencyMatrix = getArrayFromCSV("tests/6.txt")
+routes = permuteRoutes(adjacencyMatrix[0])
