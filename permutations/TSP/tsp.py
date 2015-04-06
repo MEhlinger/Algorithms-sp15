@@ -75,12 +75,19 @@ def tspSolveExact(inputPathStr):
 		adjacencyMatrix[i][i] = 0 
 
 	routes = permuteRoutes(routeNames)
+	numRoutes = len(routes)
+	divisor = math.floor(numRoutes / 10)
 
 	minCost = float("inf")
 	shortestRoute = []
 	n = len(routes[0])
 
+	routeNum = 0
 	for route in routes:
+		if routeNum % divisor == 0:
+			print "*"
+		routeNum += 1
+
 		routeCost = 0
 		route.append(route[0])
 
@@ -100,4 +107,4 @@ def tspSolveExact(inputPathStr):
 ########
 # TEST #
 ########
-tspSolveExact("tests/10.txt")
+tspSolveExact("tests/13.txt")
