@@ -1,23 +1,10 @@
-# TSP Exact Undirected Solver
+# TSP Exact (Undirected) Solver
 #  
-# 
 #
 # For algorithms class, Spring 2015
 # By Marshall Ehlinger
 
 import math
-
-def permuteRoutes(cityList):
-	uniqueRouteCount = long(math.factorial(len(cityList) - 1) / 2)
-	print "Number of unique routes: " + str(uniqueRouteCount)
-	routeList = []
-	routeList.append(cityList)
-
-	for i in range(0, uniqueRouteCount - 1):
-		# -1 in above range is initial route permutation
-		routeList.append(lexPermute(routeList[i]))
-
-	return routeList
 
 def lexPermute(route):
 	# Finds the next route in lexicographic order
@@ -69,24 +56,32 @@ def letterToNumber(letter):
 def tspSolveExact(inputPathStr):
 	adjacencyMatrix = getArrayFromCSV(inputPathStr)
 
-	routeNames = []
+	cityNames = []
 	for i in range(0, len(adjacencyMatrix[0])):
-		routeNames.append(chr(i+97))
-		adjacencyMatrix[i][i] = 0 
+		cityNames.append(chr(i+97))
+		adjacencyMatrix[i][i] = 0 # Adjust all nodes' distance to self to "0"
 
-	routes = permuteRoutes(routeNames)
-	numRoutes = len(routes)
-	divisor = math.floor(numRoutes / 10)
+	numRoutes = long(math.factorial(len(cityNames) - 1) / 2)
+	print "Number of unique routes: " + str(numRoutes)
+
+	loadingBarAsterisks = math.floor(numRoutes / 10)
 
 	minCost = float("inf")
 	shortestRoute = []
-	n = len(routes[0])
+	n = len(cityNames)
 
 	routeNum = 0
-	for route in routes:
-		if routeNum % divisor == 0:
-			print "*"
+	percentComplete = 0
+	route = list(cityNames)
+
+	for i in range(0, numRoutes):
+
+		# PROGRESS BAR PRINT LOGIC
+		if routeNum % loadingBarAsterisks == 0:
+			print str(percentComplete) + "% complete, at route " + str(routeNum) + "/" + str(numRoutes)
+			percentComplete += 10
 		routeNum += 1
+		# END PROGRESS BAR PRINT LOGIC
 
 		routeCost = 0
 		route.append(route[0])
@@ -100,11 +95,17 @@ def tspSolveExact(inputPathStr):
 			shortestRoute = list(route)
 			minCost = routeCost
 
-	print shortestRoute
-	print minCost
+		# Get next route/permutation, removing the return trip to the starting city before permuting
+		route.pop()
+		route = list(lexPermute(route))
+
+
+
+	print "Shortest Route : " + str(shortestRoute)
+	print "Cost of Shortest Route : " + str(minCost)
 
 
 ########
-# TEST #
+# MAIN #
 ########
-tspSolveExact("tests/13.txt")
+tspSolveExact("tests/6.txt")
