@@ -61,8 +61,8 @@ def tspSolveExact(inputPathStr):
 		cityNames.append(chr(i+97))
 		adjacencyMatrix[i][i] = 0 # Adjust all nodes' distance to self to "0"
 
-	numRoutes = long(math.factorial(len(cityNames) - 1) / 2)
-	print "Number of unique routes: " + str(numRoutes)
+	numRoutes = int(math.ceil(math.factorial(len(cityNames) - 1) / 2))
+	print("Number of unique routes: " + str(numRoutes))
 
 	loadingBarAsterisks = math.floor(numRoutes / 10)
 
@@ -78,7 +78,7 @@ def tspSolveExact(inputPathStr):
 
 		# PROGRESS BAR PRINT LOGIC
 		if routeNum % loadingBarAsterisks == 0:
-			print str(percentComplete) + "% complete, at route " + str(routeNum) + "/" + str(numRoutes)
+			print(str(percentComplete) + "% complete, at route " + str(routeNum) + "/" + str(numRoutes))
 			percentComplete += 10
 		routeNum += 1
 		# END PROGRESS BAR PRINT LOGIC
@@ -101,8 +101,8 @@ def tspSolveExact(inputPathStr):
 
 
 
-	print "Shortest Route : " + str(shortestRoute)
-	print "Cost of Shortest Route : " + str(minCost)
+	print("Shortest Route : " + str(shortestRoute))
+	print("Cost of Shortest Route : " + str(minCost))
 
 
 ########
