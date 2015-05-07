@@ -28,7 +28,7 @@ def lexPermute(route):
 			p[i] = p[j]
 			p[j] = temp
 
-			# Reverse the order of  p[i+1] all the way up to p[n]
+			# Reverse the order of  p[i+1] all the way up to p[numCities]
 			for g in range(i+1, int(math.ceil((len(p) + (i+1)) / 2))):
 				temp = p[len(p) - (g-i)]
 				p[len(p) - (g-i)] = p[g]
@@ -53,6 +53,24 @@ def letterToNumber(letter):
 	# Converts a one-char string to it's alphabetical index (0-indexed)
 	return ord(letter) - 97
 
+def progressBar(routeNum, numRoutes, loadingBarAsterisks, percentComplete):
+	# PROGRESS BAR PRINT LOGIC
+	if routeNum % loadingBarAsterisks == 0:
+		print(str(percentComplete) + "% complete, at route " + str(routeNum) + "/" + str(numRoutes))
+		return 10 	# Return the amount of percent to add to percentComplete 
+	return 0 # Only count by percent increment defined in above return statement
+
+def sumRouteCost(numCities, adjacencyMatrix, route, minCost):
+	routeCost = 0
+	route.append(route[0])
+
+	for i in range(0, numCities):
+		routeCost += adjacencyMatrix[letterToNumber(route[i])][letterToNumber(route[i+1])]
+		if (routeCost > minCost):
+			return float('inf')
+	return routeCost + adjacencyMatrix[letterToNumber(route[0])][letterToNumber(route[numCities])]
+
+
 def tspSolveExact(inputPathStr):
 	adjacencyMatrix = getArrayFromCSV(inputPathStr)
 
@@ -68,7 +86,7 @@ def tspSolveExact(inputPathStr):
 
 	minCost = float("inf")
 	shortestRoute = []
-	n = len(cityNames)
+	numCities = len(cityNames)
 
 	routeNum = 0
 	percentComplete = 0
@@ -76,20 +94,11 @@ def tspSolveExact(inputPathStr):
 
 	for i in range(0, numRoutes):
 
-		# PROGRESS BAR PRINT LOGIC
-		if routeNum % loadingBarAsterisks == 0:
-			print(str(percentComplete) + "% complete, at route " + str(routeNum) + "/" + str(numRoutes))
-			percentComplete += 10
+		percentComplete += progressBar(routeNum, numRoutes, loadingBarAsterisks, percentComplete)
 		routeNum += 1
-		# END PROGRESS BAR PRINT LOGIC
 
-		routeCost = 0
-		route.append(route[0])
-
-		for i in range(0, n):
-			routeCost += adjacencyMatrix[letterToNumber(route[i])][letterToNumber(route[i+1])]
-
-		routeCost += adjacencyMatrix[letterToNumber(route[0])][letterToNumber(route[n])]
+		
+		routeCost = sumRouteCost(numCities, adjacencyMatrix, route, minCost)
 
 		if routeCost < minCost:
 			shortestRoute = list(route)
@@ -108,4 +117,4 @@ def tspSolveExact(inputPathStr):
 ########
 # MAIN #
 ########
-tspSolveExact("tests/6.txt")
+tspSolveExact("tests/10.txt")
